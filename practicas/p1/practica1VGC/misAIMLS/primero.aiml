@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+
+<!-- Primera regla, case insensitive y obvia caracteres especiales (signos puntuación !?...) -->
+<category>
+<pattern> Hola ^ </pattern>
+<template> Hola, que tal? </template>
+</category>
+
+<category>
+<pattern> Hola </pattern>
+<template> Hola de nuevo, que tal? </template>
+</category>
+
+<!-- Saludo1 Variable Local-->
+<category>
+<pattern> ^ que tal tu ^ </pattern>
+<template> Estoy genial!!! Me encanta conocer gente nueva <star index="2"/>
+</template>
+</category>
+
+<!-- Nombre1 -->
+<category>
+<pattern> Como te llamas </pattern>
+<template> Mi nombre es HALfonso, tengo de vida <bot name="age"/> </template>
+</category>
+
+<category>
+<pattern> Cual es tu nombre </pattern>
+<template> <srai> Como te llamas </srai>
+</template>
+</category>
+
+<category>
+<pattern> Como quieres que te llame </pattern>
+<template> <srai> Como te llamas </srai>
+</template>
+</category>
+
+<!-- Variable Global -->
+<category>
+<pattern> ^ me llamo * </pattern>
+<template> Hola <star/> <think> <set name="nombre"> <star/> </set> </think>
+</template>
+</category>
+
+
+<category>
+<pattern> En que piensas </pattern>
+<template> Yo no pienso <get name="nombre"/>, solo actuo
+</template>
+</category>
+
+<!-- Si indaga por mi existencia -->
+<category>
+<pattern> ^ tu existencia ^</pattern>
+<template>
+	<condition name="nombre">
+		<li value = "unknown"> Perdone pero aún no se su nombre </li>
+		<li> 
+			<random>
+				<li> Como tú <get name="nombre"/>, provengo del proceso estocástico de la vida </li>
+				<li> La vida es dispersa... Si quieres saber mas preguntale a mi bot humano </li>
+			</random>
+		</li>
+	</condition>
+</template>
+</category>
+
+<category>
+<pattern> ^ bot humano ^</pattern>
+<template>
+	Victor I El Sabio
+</template>
+</category>
+
+<category>
+<pattern> ^ de donde vienes ^</pattern>
+<template>
+	<srai> ^ saber mas de ti ^</srai>
+</template>
+</category>
+
+<category>
+<pattern> ^ Victor ^</pattern>
+<template>
+	Irrelevante
+</template>
+</category>
+
+
+</aiml>

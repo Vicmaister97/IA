@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+<!-- VisionBot v1.0 Agente conversacional para gestionar el contenido de las plataformas de series -->
+<!-- Víctor García Carrera, victorgarcia@correo.ugr.es -->
+
+
+<!-- Saludo -->
+<category>
+<pattern> Hola ^</pattern>
+<template>
+	<random>
+		<li> VisionBot a su disposición </li>
+		<li> Buenas!! Soy VisionBot y le ayudaré a gestionar sus series </li>
+	</random>
+</template>
+</category>
+
+<!-- Obtenemos nombre -->
+<category>
+<pattern> ^ me llamo * </pattern>
+<template>
+	<think> <set name="nombre"> <star index="2"/> </set> </think>
+	Bonito nombre <get name="nombre"/>
+</template>
+</category>
+
+<!-- COPIAR PARA OBTENER OTROS CAMPOS O HACER QUE MUESTRE TODOS LOS CAMPOS DE UNA SERIE !-->
+<!-- Obtener sinopsis de una serie de NETFLIX -->
+<category>
+	<pattern> ^ de que va (la serie) <set>seriesnetflix</set> </pattern>
+		<template>
+			<srai> decode <map><name><star index="2"/></name> descripcion </map></srai> 
+		</template>
+</category>
+
+<!-- Obtener sinopsis de una serie de PRIMEVIDEO -->
+<category>
+	<pattern> ^ de que va (la serie) <set>primevideo</set> </pattern>
+		<template>
+			<srai> decode <map><name><star index="2"/></name> descripcion </map></srai> 
+		</template>
+</category>
+
+<category>
+	<pattern> ^ de que va (la serie) * </pattern>
+		<template>
+			Lo siento, la serie <star index="2"/> no está en el catálogo. Si desea incluir la serie <star index="2"/> escriba en la carpeta maps un archivo llamado <star index="2"/>.txt. Cuando haya terminado reinicieme y al volver, pideme que anada la nueva serie <star index="2"/>
+		</template>
+</category>
+
+
+<!-- OBTENER IDIOMAS DE AUDIO -->
+
+
+<!-- Obtener idiomas de audio de una serie de NETFLIX -->
+<category>
+	<pattern> ^ idioma+ (de)(del) audio (de)(de la) (serie) <set>seriesnetflix</set> </pattern>
+		<template>
+			<srai> decode2 <map><name><star index="2"/></name> idiomas </map></srai> 
+		</template>
+</category>
+
+<!-- Obtener idiomas de audio de una serie de PRIMEVIDEO -->
+<category>
+	<pattern> ^ idioma+ (de)(del) audio (de)(de la) (serie) <set>primevideo</set> </pattern>
+		<template>
+			<srai> decode2 <map><name><star index="2"/></name> idiomas </map></srai> 
+		</template>
+</category>
+
+<category>
+	<pattern> ^ idioma+ (de)(del) audio (de)(de la) (serie) * </pattern>
+		<template>
+			Lo siento, la serie <star index="2"/> no está en el catálogo. Si desea incluir la serie <star index="2"/> escriba en la carpeta maps un archivo llamado <star index="2"/>.txt. Cuando haya terminado reinicieme y al volver, pideme que anada la nueva serie <star index="2"/>
+		</template>
+</category>
+
+<!-- Ver si una serie de NETFLIX tiene un idioma de audio -->
+<category>
+	<pattern> ^ serie <set>seriesnetflix</set> ^ idioma (de)(del) audio *</pattern>
+		<template>
+			<think>
+				<set var="idiomas">
+					<srai> decode2 <map><name><star index="2"/></name> idiomas </map></srai> 
+				</set>
+
+				<set var="existeIdioma">
+					<srai> finditem <star index="4"/> in <get var="idiomas"/> </srai>
+				</set>
+				</think>
+
+				<condition var="existeIdioma">
+					<li value="0">
+						Lo siento, no dispone de idioma de audio en <star index="4"/>
+					</li>
+					<li>
+						Si que dispone de idioma de audio en <star index="4"/>
+					</li>
+
+				</condition>
+			
+		</template>
+</category>
+
+<!-- Ver si una serie de PRIMEVIDEO tiene un idioma de audio -->
+<category>
+	<pattern> ^ serie <set>primevideo</set> ^ idioma (de)(del) audio *</pattern>
+		<template>
+			<think>
+				<set var="idiomas">
+					<srai> decode2 <map><name><star index="2"/></name> idiomas </map></srai> 
+				</set>
+
+				<set var="existeIdioma">
+					<srai> finditem <star index="4"/> in <get var="idiomas"/> </srai>
+				</set>
+				</think>
+
+				<condition var="existeIdioma">
+					<li value="0">
+						Lo siento, no dispone de idioma de audio en <star index="4"/>
+					</li>
+					<li>
+						Si que dispone de idioma de audio en <star index="4"/>
+					</li>
+
+				</condition>
+			
+		</template>
+</category>
+
+
+<!-- OBTENER IDIOMAS DE SUBTITULOS -->
+
+
+<!-- Obtener idiomas de subtitulos de una serie de NETFLIX -->
+<category>
+	<pattern> ^ idioma+ (de)(de los) subtitulos (de)(de la serie) (serie) <set>seriesnetflix</set> </pattern>
+		<template>
+			<srai> decode2 <map><name><star index="2"/></name> subtitulos </map></srai> 
+		</template>
+</category>
+
+<!-- Obtener idiomas de subtitulos de una serie de PRIMEVIDEO -->
+<category>
+	<pattern> ^ idioma+ (de)(de los) subtitulos (de)(de la serie) (serie) <set>primevideo</set> </pattern>
+		<template>
+			<srai> decode2 <map><name><star index="2"/></name> subtitulos </map></srai> 
+		</template>
+</category>
+
+<category>
+	<pattern> ^ idioma+ (de)(de los) subtitulos (de)(de la) (serie) * </pattern>
+		<template>
+			Lo siento, la serie <star index="2"/> no está en el catálogo. Si desea incluir la serie <star index="2"/> escriba en la carpeta maps un archivo llamado <star index="2"/>.txt. Cuando haya terminado reinicieme y al volver, pideme que anada la nueva serie <star index="2"/>
+		</template>
+</category>
+
+
+<!-- Ver si una serie de NETFLIX tiene un idioma de subtitulo -->
+<category>
+	<pattern> ^ serie <set>seriesnetflix</set> ^ idioma (de)(del) subtitulos *</pattern>
+		<template>
+			<think>
+				<set var="subtitulos">
+					<srai> decode2 <map><name><star index="2"/></name> subtitulos </map></srai> 
+				</set>
+
+				<set var="existeIdioma">
+					<srai> finditem <star index="4"/> in <get var="subtitulos"/> </srai>
+				</set>
+				</think>
+
+				<condition var="existeIdioma">
+					<li value="0">
+						Lo siento, no dispone de idioma de subtitulos en <star index="4"/>
+					</li>
+					<li>
+						Si que dispone de idioma de subtitulos en <star index="4"/>
+					</li>
+
+				</condition>
+			
+		</template>
+</category>
+
+
+<!-- Ver si una serie de PRIMEVIDEO tiene un idioma de subtitulos -->
+<category>
+	<pattern> ^ serie <set>primevideo</set> ^ idioma (de)(del) subtitulos *</pattern>
+		<template>
+			<think>
+				<set var="idiomas">
+					<srai> decode2 <map><name><star index="2"/></name> idiomas </map></srai> 
+				</set>
+
+				<set var="existeIdioma">
+					<srai> finditem <star index="4"/> in <get var="idiomas"/> </srai>
+				</set>
+				</think>
+
+				<condition var="existeIdioma">
+					<li value="0">
+						Lo siento, no dispone de idioma de subtitulos en <star index="4"/>
+					</li>
+					<li>
+						Si que dispone de idioma de subtitulos en <star index="4"/>
+					</li>
+
+				</condition>
+			
+		</template>
+</category>
+
+
+<!-- Incluir un nuevo capítulo en una temporada de una serie !-->
+
+
+<!-- NETFLIX -->
+<!-- ^ Anade un nuevo capitulo de la temporada <set>number</set> de <set>seriesnetflix</set> -->
+<category>
+<pattern> ^ nuevo capitulo (de) (de la) temporada <set>number</set> (de) <set>seriesnetflix</set> </pattern>  
+<template>
+		<!-- Verificamos que existe la temporada que se indica -->
+		<think>
+		<set var="existeSeason">
+			<map><name><star index="3"/></name> temporada<star index="2"/> </map>
+		</set>
+		</think>
+
+		<condition var="existeSeason">
+			<li value="unknown"> Lo siento, no existe esa temporada. Si desea incluir la temporada <star index="2"/> escriba: nueva temporada <star index="2"/> de la serie <star index="3"/> </li>
+			<li>
+				<think>
+				<set name="serie"> <star index="3"/></set>
+				<set name="temporada"> <star index="2"/></set>
+				<set name="topic">titcap</set>
+				</think>
+				Sin problema, dime el título del capítulo
+
+
+			</li>
+		</condition>
+
+</template>
+</category>
+
+<!-- PRIMEVIDEO -->
+<!-- ^ Anade un nuevo capitulo de la temporada <set>number</set> de <set>primevideo</set> -->
+<category>
+<pattern> ^ nuevo capitulo (de) (de la) temporada <set>number</set> (de) <set>primevideo</set> </pattern>  
+<template>
+		<!-- Verificamos que existe la temporada que se indica -->
+		<think>
+		<set var="existeSeason">
+			<map><name><star index="3"/></name> temporada<star index="2"/> </map>
+		</set>
+		</think>
+
+		<condition var="existeSeason">
+			<li value="unknown"> Lo siento, no existe esa temporada. Si desea incluir la temporada <star index="2"/> escriba: nueva temporada <star index="2"/> de la serie <star index="3"/> </li>
+			<li>
+				<think>
+				<set name="serie"> <star index="3"/></set>
+				<set name="temporada"> <star index="2"/></set>
+				<set name="topic">titcap</set>
+				</think>
+				Sin problema, dime el título del capítulo
+
+
+			</li>
+		</condition>
+
+</template>
+</category>
+
+<category>
+	<pattern> ^ nuevo capitulo (de) (de la) temporada <set>number</set> (de) * </pattern>
+		<template>
+			Lo siento, la serie <star index="3"/> no está en el catálogo. Si desea incluir la serie <star index="3"/> escriba en la carpeta maps un archivo llamado <star index="3"/>.txt. Cuando haya terminado reinicieme y al volver, pideme que anada la nueva serie <star index="3"/>
+		</template>
+</category>
+
+<topic name ="titcap">
+
+<!--  Pide el nombre de un capitulo    --> 
+<category>  
+	<pattern> * </pattern>  
+	<template>
+			<think>
+			<set name="titulo"> <srai> code <star/> </srai> </set>
+			<set name="topic">durcap</set>
+			</think>
+			Vale, dime la duración del capítulo
+	</template>
+</category>
+</topic>
+
+<topic name ="durcap">
+
+<!-- Pide la duracion de un capitulo. Anade el capitulo-->	
+<category>	
+	<pattern><set>number</set></pattern>	
+	<template>
+			<think>
+				<set name="duracion"><star/></set>
+				<set name="topic">unknown</set>
+				</think>
+				<!--	Obtenemos la lista actual de capitulos de la temporada	-->
+				<think>
+				<set var="listaprevia">
+					<map><name><get name="serie"/></name> temporada<get name="temporada"/> </map>
+				</set>
+
+				<!--	Escribimos el nuevo capitulo en el formato adecuado	-->
+				<set var="newlist"><get var="listaprevia"/>@<get name="titulo"/>@<get name="duracion"/></set>
+
+				<!--	Actualizamos la temporada	-->
+				<modifymap>
+					<name><get name="serie"/></name>	
+					<key>temporada<get name="temporada"/></key>	
+					<value><get var="newlist"/></value>	
+				</modifymap>
+			</think>
+
+			Este capitulo ya esta disponible en la plataforma
+	</template>	
+</category>
+</topic>
+
+
+
+
+<!-- Incluir el primer capítulo de una nueva temporada en una serie. !-->
+
+
+<!-- NETFLIX -->
+<category>
+<pattern> ^ nueva temporada <set>number</set> (de)(de la serie) <set>seriesnetflix</set> </pattern>  
+<template>
+		<!-- Verificamos que existe la temporada que se indica -->
+		<think>
+		<set var="existeSeason">
+			<map><name><star index="3"/></name> temporada<star index="2"/> </map>
+		</set>
+		</think>
+
+		<condition var="existeSeason">
+			<!-- Si no existía esa temporada -->
+			<li value="unknown">
+				<think>
+				<set name="serie"> <star index="3"/></set>
+				<set name="temporada"> <star index="2"/></set>
+				<set name="topic">titcap</set>
+				</think>
+				Okay, dime el título del capítulo.
+
+			</li>
+			<li>
+				Lo siento, esa temporada ya existe.
+			</li>
+		</condition>
+
+</template>
+</category>
+
+<!-- PRIMEVIDEO -->
+<category>
+<pattern> ^ nueva temporada <set>number</set> (de)(de la serie) <set>primevideo</set> </pattern>  
+<template>
+		<!-- Verificamos que existe la temporada que se indica -->
+		<think>
+		<set var="existeSeason">
+			<map><name><star index="3"/></name> temporada<star index="2"/> </map>
+		</set>
+		</think>
+
+		<condition var="existeSeason">
+			<!-- Si no existía esa temporada -->
+			<li value="unknown">
+				<think>
+				<set name="serie"> <star index="3"/></set>
+				<set name="temporada"> <star index="2"/></set>
+				<set name="topic">titcap2</set>
+				</think>
+				Okay, dime el título del capítulo.
+
+			</li>
+			<li>
+				Lo siento, esa temporada ya existe.
+			</li>
+		</condition>
+
+</template>
+</category>
+
+<category>
+	<pattern> ^ nueva temporada <set>number</set> (de)(de la serie) * </pattern>
+		<template>
+			Lo siento, la serie <star index="3"/> no está en el catálogo. Si desea incluir la serie <star index="3"/> escriba en la carpeta maps un archivo llamado <star index="3"/>.txt. Cuando haya terminado reinicieme y al volver, pideme que anada la nueva serie <star index="3"/>
+		</template>
+</category>
+
+<topic name ="titcap2">
+
+<!--  Pide el nombre de un capitulo    --> 
+<category>  
+	<pattern> * </pattern>  
+	<template>
+			<think>
+			<set name="titulo"> <srai> code <star/> </srai> </set>
+			<set name="topic">durcap2</set>
+			</think>
+			Vale, dime la duración del capítulo
+	</template>
+</category>
+</topic>
+
+<topic name ="durcap2">
+
+<!-- Pide	la	duracion de	un	capitulo. Anade el capitulo-->	
+<category>	
+	<pattern><set>number</set></pattern>	
+	<template>
+			<think>
+				<set name="duracion"><star/></set>
+				<set name="topic">unknown</set>
+
+				<!--	Escribimos el nuevo capítulo(el primero) en el formato adecuado	-->
+				<set var="newcap"><get name="titulo"/>@<get name="duracion"/></set>
+
+				<!--	Aniadimos la nueva temporada al mapa que contiene los campos de la serie	-->
+				<addtomap>
+					<name><get name="serie"/></name>	
+					<key>temporada<get name="temporada"/></key>	
+					<value><get var="newcap"/></value>	
+				</addtomap>
+			</think>
+
+			Esta temporada ya esta disponible en la plataforma
+	</template>	
+</category>
+</topic>
+
+
+
+
+<!-- Incluir una nueva serie en una de las plataformas. !-->
+
+
+<category>
+<pattern> ^ nueva serie * </pattern>  
+<template>
+		Para continuar, es necesario que haya creado previamente en la carpeta maps un archivo llamado "<star index="2"/>.txt". Si no, reinicieme y vuelva a intentarlo. Indiqueme qué plataforma la oferta.
+		
+		<think>
+			<set name="newserie"> <star index="2"/></set>
+			<set name="topic">newSerie</set>
+		</think>
+
+</template>
+</category>
+
+<topic name ="newSerie">
+
+
+<!-- NETFLIX -->
+<category>
+<pattern> ^ netflix ^ </pattern>  
+<template>
+		<!-- Verificamos que existe la temporada que se indica -->
+		<think>
+		<set var="series">
+			<readset>seriesnetflix</readset>
+		</set>
+
+		<set var="existeSerie">
+			<srai> finditem <get name="newserie"/> in <get var="series"/> </srai>
+		</set>
+		</think>
+
+		<condition var="existeSerie">
+			<!-- Es una nueva serie, NO una existente -->
+			<li value="0">
+				<think>
+				<addtoset>
+					<name>seriesnetflix</name>
+					<key><get name="newserie"/></key>
+				</addtoset>
+
+				<set name="topic">genero</set>
+				</think>
+				Okay, dime a qué género/s pertenece la serie.
+				</li>
+			<li>
+				Lo siento, ya existe esa serie.
+
+			</li>
+		</condition>
+
+</template>
+</category>
+
+<!-- PRIMEVIDEO -->
+<category>
+<pattern> ^ primevideo ^ </pattern>  
+<template>
+		<!-- Verificamos que existe la temporada que se indica -->
+		<think>
+		<set var="series">
+			<readset>primevideo</readset>
+		</set>
+
+		<set var="existeSerie">
+			<srai> finditem <get name="newserie"/> in <get var="series"/> </srai>
+		</set>
+		</think>
+
+		<condition var="existeSerie">
+			<!-- Es una nueva serie, NO una existente -->
+			<li value="0">
+				<think>
+				<addtoset>
+					<name>primevideo</name>
+					<key><get name="newserie"/></key>
+				</addtoset>
+
+				<set name="topic">genero</set>
+				</think>
+				Okay, dime a qué género/s pertenece la serie.
+				</li>
+			<li>
+				Lo siento, ya existe esa serie.
+
+			</li>
+		</condition>
+
+</template>
+</category>
+
+</topic>
+
+<topic name ="genero">
+
+<!--  Pide el/los generos de un capitulo    --> 
+<category>  
+	<pattern> * </pattern>  
+	<template>
+			<think>
+			<set name="generos"> <srai> code2 <star/> </srai> </set>
+			<set name="topic">descripcion</set>
+
+			<addtomap>
+				<name><get name="newserie"/></name>	
+				<key>genero</key>	
+				<value><get name="generos"/></value>	
+			</addtomap>
+			</think>
+
+			Cuentame de qué va la serie.
+	</template>
+</category>
+
+</topic>
+
+<topic name ="descripcion">
+
+<!-- Descripcion de la serie -->	
+<category>	
+	<pattern> * </pattern>	
+	<template>
+			<think>
+				<set name="desc"> <srai> code <star/> </srai> </set>
+				<set name="topic">idiomas</set>
+
+				<addtomap>
+					<name><get name="newserie"/></name>	
+					<key>descripcion</key>	
+					<value><get name="desc"/></value>	
+				</addtomap>
+			</think>
+
+			Entiendo. Dime los idiomas en los que se encuentra el audio de la serie
+	</template>	
+</category>
+</topic>
+
+<topic name ="idiomas">
+
+<!-- Idiomas audio -->	
+<category>	
+	<pattern> * </pattern>	
+	<template>
+			<think>
+				<set name="audio"> <srai> code2 <star/> </srai> </set>
+				<set name="topic">subs</set>
+
+				<addtomap>
+					<name><get name="newserie"/></name>	
+					<key>idiomas</key>	
+					<value><get name="audio"/></value>	
+				</addtomap>
+			</think>
+
+			Dime los idiomas en los que se encuentran los subtitulos de la serie
+	</template>	
+</category>
+</topic>
+
+<topic name ="subs">
+
+<!-- Idiomas subtitulos -->	
+<category>	
+	<pattern> * </pattern>	
+	<template>
+			<think>
+				<set name="subtit"> <srai> code2 <star/> </srai> </set>
+				<set name="topic">web</set>
+
+				<addtomap>
+					<name><get name="newserie"/></name>	
+					<key>subtitulos</key>	
+					<value><get name="subtit"/></value>	
+				</addtomap>
+			</think>
+
+			Si conoces una dirección web de la serie indicamela.
+	</template>	
+</category>
+</topic>
+
+<topic name ="web">
+
+<!-- Pagina web -->	
+<category>	
+	<pattern> * </pattern>	
+	<template>
+			<think>
+				<set name="topic">newcaps</set>
+
+				<addtomap>
+					<name><get name="newserie"/></name>	
+					<key>web</key>	
+					<value><star/></value>	
+				</addtomap>
+			</think>
+
+			Vale, ya he creado la serie con la información básica proporcionada. Si desea incluir una nueva temporada escriba: nueva temporada "num" de la serie <get name="newserie"/>
+	</template>	
+</category>
+</topic>
+
+
+
+</aiml>

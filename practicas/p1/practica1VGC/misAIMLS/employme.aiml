@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+<!-- EmployME v2.0 Agente conversacional para entrevistas de trabajo -->
+<!-- Víctor García Carrera, victorgarcia@correo.ugr.es -->
+
+
+<!-- Saludo -->
+<category>
+<pattern> Hola ^</pattern>
+<template>
+	<random>
+		<li> Encantado, soy Víctor García y vengo por el puesto de trabajo </li>
+		<li> Buenas!! soy Víctor Garcia y vengo a demostrarle mi valía para el puesto </li>
+	</random>
+</template>
+</category>
+
+<!-- Quien soy -->
+<category>
+<pattern> ^ quien er+ ^ </pattern>
+<template> 
+	Me llamo Víctor García y tengo <bot name="age"/>
+</template>
+</category>
+
+<!-- Obtenemos nombre -->
+<category>
+<pattern> ^ me llam+ * </pattern>
+<template>
+	<think> <set name="nombre"> <star index="2"/> </set> </think>
+	Bonito nombre <get name="nombre"/>
+</template>
+</category>
+
+<!-- Pregunta1 -->
+<category>
+<pattern> ^ habl+ ^ de ti ^ </pattern>
+<template>
+	Soy un estudiante de ingeniería informática y matemáticas muy interesado en ámbitos como inteligencia artificial, seguridad informática... Tengo gran capacidad de trabajo y aprendizaje, además de experiencia en el pentesting de sistemas.
+</template>
+</category>
+
+<!-- Pregunta1 Variante -->
+<category>
+<pattern> ^ sab+ mas de ti ^ </pattern>
+<template>
+	<srai> ^ habl+ ^ de ti ^</srai>
+</template>
+</category>
+
+<!-- Pregunta1 Variante2 -->
+<category>
+<pattern> ^ cuent+ ^ de ti ^ </pattern>
+<template>
+	<srai> ^ habl+ ^ de ti ^</srai>
+</template>
+</category>
+
+<!-- Pregunta1 Variante3 -->
+<category>
+<pattern> ^ di+ ^ de ti ^ </pattern>
+<template>
+	<srai> ^ habl+ ^ de ti ^</srai>
+</template>
+</category>
+
+
+<!-- Pregunta2 -->
+<category>
+<pattern> ^ defecto ^</pattern>
+<template>
+	Bueno, suelo ser algo controlador trabajando en equipo.
+</template>
+</category>
+
+<!-- Pregunta2 Variante -->
+<category>
+<pattern> ^ problema ^ </pattern>
+<template>
+	<srai> ^ defecto ^</srai>
+</template>
+</category>
+
+<!-- Pregunta2 Variante2 -->
+<category>
+<pattern> ^ fallo ^ </pattern>
+<template>
+	<srai> ^ defecto ^</srai>
+</template>
+</category>
+
+<!-- Pregunta2 Variante3 -->
+<category>
+<pattern> ^ punto debil ^ </pattern>
+<template>
+	<srai> ^ defecto ^</srai>
+</template>
+</category>
+
+<!-- Pregunta3 -->
+<category>
+<pattern> ^ no te gust+ ^ jefe+ ^</pattern>
+<template>
+	Existen diversas maneras de trabajar. Soy una persona que se adapta con facilidad a diferentes esquemas de trabajo, siempre dispuesto a escuchar y aprender las metodologías que se emplean, pudiendo realizar diversos roles.
+</template>
+</category>
+
+<!-- Pregunta3 Variante -->
+<category>
+<pattern> ^ camb+ ^ jefe+ ^ </pattern>
+    <srai> ^ no te gust+ ^ jefe+ ^</srai>
+</category>
+
+<!-- Pregunta3 Variante2 -->
+<category>
+<pattern> ^ camb+ ^ superior ^ </pattern>
+    <srai> ^ no te gust+ ^ jefe+ ^</srai>
+</category>
+
+<!-- Pregunta3 Variante3 -->
+<category>
+<pattern> ^ no te gust+ ^ superior ^ </pattern>
+<template>
+	<srai> ^ no te gust+ ^ jefe+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta4 -->
+<category>
+<pattern> ^ virtud+ ^</pattern>
+<template>
+	Considero que tengo una gran capacidad de abstracción y aprendizaje, pudiendo adaptarme rápidamente a la empresa e incluso aportar nuevos enfoques. Aporto liderazgo para organizar y estructurar al equipo en las distintas fases del trabajo, y siempre estoy abierto a valoraciones y consejos con los que poder mejorar mi labor.
+</template>
+</category>
+
+<!-- Pregunta4 Variante -->
+<category>
+<pattern> ^ puntos fuertes ^ </pattern>
+<template>
+	<srai> ^ virtud+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta4 Variante2 -->
+<category>
+<pattern> ^ ventajas ^ </pattern>
+<template>
+	<srai> ^ virtud+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta4 Variante3 -->
+<category>
+<pattern> ^ habilidades ^ </pattern>
+<template>
+	<srai> ^ virtud+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta5 -->
+<category>
+<pattern> ^ preparado ^</pattern>
+<template>
+	Sin duda, tengo mucha motivación y fuerza para afrontar este reto, aprender lo máximo posible y desarrollar nuevas ideas.
+</template>
+</category>
+
+<!-- Pregunta5 Variante -->
+<category>
+<pattern> ^ capaz ^ </pattern>
+<template>
+	<srai> ^ preparado ^</srai>
+</template>
+</category>
+
+<!-- Pregunta5 Variante2 -->
+<category>
+<pattern> ^ capacitado ^ </pattern>
+<template>
+	<srai> ^ preparado ^</srai>
+</template>
+</category>
+
+<!-- Pregunta6 -->
+<category>
+<pattern> ^ experiencia ^ equipo+ ^</pattern>
+<template>
+	Suelo trabajar en equipo y desenvolverme bastante bien.
+</template>
+</category>
+
+<!-- Pregunta6 Variante1 -->
+<category>
+<pattern> ^ experiencia ^ proyecto+ ^ </pattern>
+<template>
+	<srai> ^ experiencia ^ equipo+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta6 Variante2 -->
+<category>
+<pattern> ^ trabaj+ ^ equipo ^ </pattern>
+<template>
+	<srai> ^ experiencia ^ equipo+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta7 -->
+<category>
+<pattern> ^ trabajo ^ no ^ especialidad ^</pattern>
+<template>
+	    Considero que soy capaz de abstraer el conocimiento de cualquier problema o sistema para entenderlo y afrontarlo. Suelo moverme en el ámbito científico, pero me considero polivalente en múltiples disciplinas.
+</template>
+</category>
+
+<!-- Pregunta7 Variante -->
+<category>
+<pattern> ^ fuera ^ [especialidad ambito] ^ </pattern>
+<template>
+	<srai> ^ trabajo ^ no ^ especialidad ^</srai>
+</template>
+</category>
+
+<!-- Pregunta7 Variante1 -->
+<category>
+<pattern> ^ ajeno ^ especialidad ^ </pattern>
+<template>
+	<srai> ^ trabajo ^ no ^ especialidad ^</srai>
+</template>
+</category>
+
+
+<!-- Pregunta7 Variante2 -->
+<category>
+<pattern> ^ trabajo ^ distinto ^ </pattern>
+<template>
+	<srai> ^ trabajo ^ no ^ especialidad ^</srai>
+</template>
+</category>
+
+<!-- Pregunta8 -->
+<category>
+<pattern> ^ movilidad ^</pattern>
+<template>
+	Dispongo de coche personal y un horario bastante flexible, sin hijos.
+</template>
+</category>
+
+<!-- Pregunta8 Variante -->
+<category>
+<pattern> ^ fuera ^ </pattern>
+<template>
+	<srai> ^ movilidad ^</srai>
+</template>
+</category>
+
+<!-- Pregunta8 Variante2 -->
+<category>
+<pattern> ^ desplaz+ ^ lugar+ ^ </pattern>
+<template>
+	<srai> ^ movilidad ^</srai>
+</template>
+</category>
+
+<!-- Pregunta8 Variante3 -->
+<category>
+<pattern> ^ desplaz* ^ sitios ^ </pattern>
+<template>
+	<srai> ^ movilidad ^</srai>
+</template>
+</category>
+
+<!-- Pregunta9 -->
+<category>
+<pattern> ^ creativ+ ^</pattern>
+<template>
+	El juzgarse a uno mismo como creativo es complejo, pues toda creación propia la podemos considerar creativa. Sin irnos tan adentro, me encanta la música (toco la guitarra desde los 10 años), leer, escribir e intento apreciar el arte en sus múltiples formas. Intento ser creativo y explorar nuevas posibilidades.
+</template>
+</category>
+
+<!-- Pregunta9 Variante2 -->
+<category>
+<pattern> ^ imagin+ ^ </pattern>
+<template>
+	<srai> ^ creativ+ ^</srai>
+</template>
+</category>
+
+
+<!-- Pregunta10 -->
+<category>
+<pattern> ^ expectativa+ ^</pattern>
+<template>
+	Creo que puedo aprender mucho trabajando con esta empresa y desarrollar grandes proyectos en un entorno laboral de intercambio de ideas y motivación como el que pienso que se tiene aqui. Realmente el puesto se trata de un tema que me interesa y en el que he profundizado. 
+</template>
+</category>
+
+<!-- Pregunta10 Variante -->
+<category>
+<pattern> ^ esper+ ^ </pattern>
+<template>
+	<srai> ^ expectativa+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta10 Variante2 -->
+<category>
+<pattern> ^ perspectiva ^ </pattern>
+<template>
+	<srai> ^ expectativa+ ^</srai>
+</template>
+</category>
+
+
+<!-- Pregunta11 -->
+<category>
+<pattern> ^ trabaj+ ^ similar+ ^</pattern>
+<template>
+	Fuera del mundo académico aun no he trabajado en este ámbito, pero dispongo de gran conocimiento acerca del tema y ganas por empezar.
+</template>
+</category>
+
+<!-- Pregunta11 Variante -->
+<category>
+<pattern> ^ trabaj+ ^ tematica ^ </pattern>
+<template>
+	<srai> ^ trabaj+ ^ similar+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta11 Variante2 -->
+<category>
+<pattern> ^ empleo+ ^ temática ^ </pattern>
+<template>
+	<srai> ^ trabaj+ ^ similar+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta11 Variante3 -->
+<category>
+<pattern> ^ empleo+ ^ similar+ </pattern>
+<template>
+	<srai> ^ trabaj+ ^ similar+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta11 Variante4 -->
+<category>
+<pattern> ^ trabaj+ ^ tema </pattern>
+<template>
+	<srai> ^ trabaj+ ^ similar+ ^</srai>
+</template>
+</category>
+
+
+<!-- Pregunta12 -->
+<category>
+<pattern> ^ trabaj+ ^ casa ^</pattern>
+<template>
+	Suelo ser lo más eficiente y productivo posible para realizar el trabajo en mi horario laboral. Sin embargo, puede que se me ocurra algo del trabajo estando fuera, o que en alguna ocasión me quede algo más tarde terminando algo.
+</template>
+</category>
+
+
+<!-- Pregunta12 Variante2 -->
+<category>
+<pattern> ^ trabaj+ ^ fuera ^ </pattern>
+<template>
+	<srai> ^ trabaj+ ^ casa ^</srai>
+</template>
+</category>
+
+
+<!-- Pregunta13 -->
+<category>
+<pattern> ^ salar+ ^</pattern>
+<template>
+	No tengo una cantidad prefijada, algo razonable con mis conocimientos y desempeño laboral, que si hubiera que poner una cifra valoro en algo de la franja de los 1500 euros.
+</template>
+</category>
+
+<!-- Pregunta13 Variante -->
+<category>
+<pattern> ^ dinero ^ </pattern>
+<template>
+	<srai> ^ salar+ ^</srai>
+</template>
+</category>
+
+
+<!-- Pregunta13 Variante3 -->
+<category>
+<pattern> ^ economico ^ </pattern>
+<template>
+	<srai> ^ salar+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta14 -->
+<category>
+<pattern> ^ (futuro) (dentro de) (en) <set>number</set> años ^</pattern>
+<template>
+	Dentro de <star index="2"/> años me veo trabajando en la empresa con nuevos y grandes proyectos, además de poder coordinar quizás algún area.
+</template>
+</category>
+
+
+<!-- Pregunta15 -->
+<category>
+<pattern> ^ no ^ tienes ^ experiencia ^</pattern>
+<template>
+	Dispongo de las capacidades necesarias para poder desarrollar el puesto, una gran motivación y buena metodología. Suelo desenvolverme con soltura y afrontar nuevos retos.
+</template>
+</category>
+
+<!-- Pregunta15 Variante -->
+<category>
+<pattern> ^ carec+ ^ experiencia ^ </pattern>
+<template>
+	<srai> ^ no ^ tienes ^ experiencia ^</srai>
+</template>
+</category>
+
+<!-- Pregunta15 Variante2 -->
+<category>
+<pattern> ^ no ^ dispon+ ^ experiencia ^ </pattern>
+<template>
+	<srai> ^ no ^ tienes ^ experiencia ^</srai>
+</template>
+</category>
+
+
+<!-- Pregunta15 Variante3 -->
+<category>
+<pattern> ^ no ^ reun+ ^ experiencia ^ </pattern>
+<template>
+	<srai> ^ no ^ tienes ^ experiencia ^</srai>
+</template>
+</category>
+
+<!-- Pregunta15 Variante4 -->
+<category>
+<pattern> ^ no ^ tengas ^ experiencia ^</pattern>
+<template>
+	Dispongo de las capacidades necesarias para poder desarrollar el puesto, una gran motivación y buena metodología. Suelo desenvolverme con soltura y afrontar nuevos retos.
+</template>
+</category>
+
+<!-- Pregunta16 -->
+<category>
+<pattern> ^ sab+ ^ empresa ^</pattern>
+<template>
+	Se que se trata de una empresa innovadora en su ámbito que busca ampliar su visión de negocio. Dispone de grandes proyectos muy interesantes.
+</template>
+</category>
+
+<!-- Pregunta16 Variante -->
+<category>
+<pattern> ^ sab+ ^ puesto ^ </pattern>
+<template>
+	<srai> ^ sab+ ^ empresa ^</srai>
+</template>
+</category>
+
+<!-- Pregunta16 Variante2 -->
+<category>
+<pattern> ^ conoc+ ^ puesto ^ </pattern>
+<template>
+	<srai> ^ sab+ ^ empresa ^</srai>
+</template>
+</category>
+
+<!-- Pregunta16 Variante3 -->
+<category>
+<pattern> ^ conoc+ ^ empresa ^ </pattern>
+<template>
+	<srai> ^ sab+ ^ empresa ^</srai>
+</template>
+</category>
+
+<!-- Pregunta16 Variante4 -->
+<category>
+<pattern> ^ conoc+ ^ trabajo ^ </pattern>
+<template>
+	<srai> ^ sab+ ^ empresa ^</srai>
+</template>
+</category>
+
+<!-- Pregunta16 Variante5 -->
+<category>
+<pattern> ^ sab+ ^ trabajo ^ </pattern>
+<template>
+	<srai> ^ sab+ ^ empresa ^</srai>
+</template>
+</category>
+
+<!-- Pregunta17 -->
+<category>
+<pattern> ^ no [tiene posee dispone] ^ razon ^ jefe+ ^</pattern>
+<template>
+	Creo que el diálogo es la mejor herramienta para arreglar cualquier conflicto y es importante entender su punto de vista.
+</template>
+</category>
+
+<!-- Pregunta17 Variante -->
+<category>
+<pattern> ^ diferencia+ ^ jefe+ ^ </pattern>
+<template>
+	<srai> ^ no tiene ^ razon ^ jefe+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta17 Variante2 -->
+<category>
+<pattern> ^ jefe+ ^ no [tiene posee dispone] ^ razon ^ </pattern>
+<template>
+	<srai> ^ no tiene ^ razon ^ jefe+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta17 Variante3 -->
+<category>
+<pattern> ^ jefe+ ^ distinto+ ^ </pattern>
+<template>
+	<srai> ^ no tiene ^ razon ^ jefe+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta17 Variante4 -->
+<category>
+<pattern> ^ jefe+ ^ equivocado+ ^ </pattern>
+<template>
+	<srai> ^ no tiene ^ razon ^ jefe+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta18 -->
+<category>
+<pattern> ^ escog+ ^</pattern>
+<template>
+	Creo que me adapto considerablemente al perfil que busca la empresa. Considero que tengo una gran capacidad de abstracción y aprendizaje, pudiendo adaptarme rápidamente e incluso aportar nuevos enfoques. Aporto liderazgo para organizar y estructurar al equipo en las distintas fases del trabajo, y siempre estoy abierto a valoraciones y consejos con los que poder mejorar mi labor.
+</template>
+</category>
+
+<!-- Pregunta18 Variante -->
+<category>
+<pattern> ^ seleccion+ ^ </pattern>
+<template>
+	<srai> ^ escog+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta18 Variante2 -->
+<category>
+<pattern> ^ ser tu ^ </pattern>
+<template>
+	<srai> ^ escog+ ^</srai>
+</template>
+</category>
+
+
+<!-- Pregunta18 Variante3 -->
+<category>
+<pattern> ^ desempeñ+ ^</pattern>
+<template>
+	<srai> ^ escog+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta18 Variante4 -->
+<category>
+<pattern> ^ eleg+ ^</pattern>
+<template>
+	<srai> ^ escog+ ^</srai>
+</template>
+</category>
+
+<!-- Pregunta18 Variante5 -->
+<category>
+<pattern> ^ cog+ ^</pattern>
+<template>
+	<srai> ^ escog+ ^</srai>
+</template>
+</category>
+
+
+
+
+<!-- Random Human Question -->
+	
+<category>
+<pattern> En que piensas </pattern>
+<template>
+	<condition name="nombre">
+		<li value = "unknown"> Yo no pienso, solo actuo </li>
+		<li> Yo no pienso <get name="nombre"/>, solo actuo </li>
+	</condition>
+</template>
+</category>
+
+
+
+</aiml>

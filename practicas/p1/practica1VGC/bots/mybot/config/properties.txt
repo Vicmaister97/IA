@@ -1,0 +1,7 @@
+name:VKBOT
+email:nobody@nowhere.com
+gender:male
+age: 21 anios
+botmaster:DaBoss	
+organization:ugr
+version:0.0.5

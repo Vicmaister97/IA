@@ -1,0 +1,61 @@
+
+<topic name ="titcap">
+
+<!--  Pide el nombre de un capitulo    --> 
+<category>  
+	<pattern> * </pattern>  
+	<template>
+			<think>
+			<set name="titulo"> <srai> code <star/> </srai> </set>
+			<set name="topic">durcap</set>
+			</think>
+			Vale, dime la duración del capítulo
+	</template>
+</category>
+</topic>
+
+<topic name ="durcap">
+
+<!-- Pide	la	duracion	de	un	capitulo. Anade el capitulo-->	
+<category>	
+	<pattern><set>number</set></pattern>	
+	<template>
+			<think>
+				<set name="duracion"><star/></set>
+				<set name="topic">unknown</set>
+				</think>
+				<!--	Operaciones	previas	a	la	insercion	en	el	map	-->	
+				<think>
+				<set var="listaprevia">
+					<map><name><get name="serie"/></name> temporada<get name="temporada"/> </map>
+				</set>
+
+				<set var="newcap"><get name="titulo"/>@<get name="duracion"/></set>
+
+				<set var="newcap">
+					<srai> ADDITEM <get var="addlista"/> IN <get var="listaprevia"/> </srai>
+				</set>
+
+				<addmap>
+					<name><get name="serie"/></name>	
+					<key>temporada<get name="temporada"/></key>	
+					<value><get var="newcap"/></value>	
+				</addmap>
+			</think>
+
+			Esta temporada ya esta disponible en la plataforma
+	</template>	
+</category>
+</topic>
+
+
+<!-- Incluir una nueva serie en una de las plataformas. !-->
+
+
+
+
+
+
+
+
+Por_fin_libre@53@Cambalache@47@Nuestro_hombre_en_madrid@47@El_bueno_el_malo_y_el_muerto@56
