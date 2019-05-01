@@ -5,6 +5,9 @@
 
 #include <list>
 
+/* --- MODIFICADO POR: 	Víctor García Carrera, victorgarcia@correo.ugr.es --- */
+
+
 struct estado {
   int fila;
   int columna;
@@ -20,6 +23,8 @@ class ComportamientoJugador : public Comportamiento {
       destino.fila = -1;
       destino.columna = -1;
       destino.orientacion = -1;
+      ultimaAccion = actIDLE;
+      hayPlan = false;
     }
     ComportamientoJugador(std::vector< std::vector< unsigned char> > mapaR) : Comportamiento(mapaR) {
       // Inicializar Variables de Estado
@@ -28,6 +33,8 @@ class ComportamientoJugador : public Comportamiento {
       destino.fila = -1;
       destino.columna = -1;
       destino.orientacion = -1;
+      ultimaAccion = actIDLE;
+      hayPlan = false;
     }
     ComportamientoJugador(const ComportamientoJugador & comport) : Comportamiento(comport){}
     ~ComportamientoJugador(){}
@@ -39,9 +46,13 @@ class ComportamientoJugador : public Comportamiento {
 
   private:
     // Declarar Variables de Estado
-    int fil, col, brujula;
+    int fil, col, brujula;  //fil y col donde esta el jugador, brujula orientacion 0:Norte, 1:Este, 2:Sur, 3:Oeste
     estado actual, destino;
     list<Action> plan;
+
+    // Nuevas Variables de Estado
+    Action ultimaAccion;  // Almacena la ultima accion realizada por el agente para actualizar sus efectos
+    bool hayPlan;				// true si el agente ha deliberado un plan viable, false si no
 
     // Métodos privados de la clase
     bool pathFinding(int level, const estado &origen, const estado &destino, list<Action> &plan);

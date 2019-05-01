@@ -6,15 +6,26 @@
 #include <set>
 #include <stack>
 
+/* --- MODIFICADO POR: 	Víctor García Carrera, victorgarcia@correo.ugr.es --- */
 
-// Este es el método principal que debe contener los 4 Comportamientos_Jugador
-// que se piden en la práctica. Tiene como entrada la información de los
-// sensores y devuelve la acción a realizar.
+
+// Este es el método principal que implementa el comportamiento inteligente de nuestro agente reactivo/deliberativo.
+// Contiene los 4 Comportamientos_Jugador que se piden en la práctica.
+
+// Por un lado, controla la elaboracion de un plan para llegar al objetivo utilizando los 4 comportamientos
+// de los que dispone dependiendo del caso en el que se encuentre.
+
+// Por otro lado, controla la ejecución del plan elaborado, que se lleve a cabo y pueda reaccionar ante cambios imprevistos
+
+// Tiene como entrada la información de los sensores y devuelve la acción a realizar.
 Action ComportamientoJugador::think(Sensores sensores) {
-	Action accion = actIDLE;
-	// Estoy en el nivel 1
-
+	Action accion = actFORWARD;	// Accion que realizara el agente
+	
 	if (sensores.nivel != 4){
+		// Estoy en el nivel 1 (LVL1)
+
+		// Monitorizamos el sensor mensajeF. Objetivo ppal: OBTENER POSICION INICIAL JUGADOR
+		// En la primera iteracion del juego, el sensor se activa con un valor != -1 para dar al jugador su posicion inicial (fila y columna)
 		if (sensores.mensajeF != -1){
 			fil = sensores.mensajeF;
 			col = sensores.mensajeC;
@@ -28,7 +39,76 @@ Action ComportamientoJugador::think(Sensores sensores) {
 			destino.columna = sensores.destinoC;
 		}
 
-		bool hay_plan = pathFinding (sensores.nivel, actual, destino, plan);
+		// Actualizamos la posicion del jugador (fil, col) con el efecto de su ultima accion
+		// Notacion brujula 0:N 1:E 2:S 3:O (4 sería N de nuevo) en sentido horario, +1 mod4 implica girar der(R), -1=+3 en mod4 girar izq(L)
+		switch(ultimaAccion){
+			case actTURN_R: brujula = (brujula+1)%4; break;
+			case actTURN_L: brujula = (brujula+3)%4; break;
+			case actFORWARD:
+				switch(brujula){			// Si la accion fue caminar hacia delante, en función de su orientacion (que mantiene igual que antes)
+					case 0: fil--; break;	// actualizamos correctamente la fila y columna de su posicion actual
+					case 1: col++; break;
+					case 2: fil++; break;
+					case 3: col--; break;
+				}
+			break;
+		}
+
+	cout << "Fila: " << fil << " Col: " << col << " Orientacion: " << brujula << endl;
+
+		// SE PUEDE OMITIR, o para DEST CAMBIANTES
+		// Comprobamos si ha cambiado la casilla objetivo y hay que actualizar destino
+		if (sensores.destinoF != destino.fila or sensores.destinoC != destino.columna){
+			destino.fila = sensores.destinoF;
+			destino.columna = sensores.destinoC;
+			hayPlan = false;
+		}
+
+		/* -- DESARROLLO DEL PLAN --*/
+
+		// GESTIONAR QUE CUANDO FALLA EL PLAN (OBSTACULO), SE RECALCULE !!!
+
+		// Si el agente no ha deliberado un camino hasta el destino, lo calcula
+		if (!hayPlan){
+			actual.fila = fil;
+			actual.columna = col;
+			actual.orientacion = brujula;
+			hayPlan = pathFinding (sensores.nivel, actual, destino, plan);
+		}
+
+		/* -- CONTROL DEL PLAN -- */
+
+		// Si hay un plan con una o mas acciones, controlamos que se ejecute el camino
+		if (hayPlan and plan.size()>0){
+			accion = plan.front();		// Obtenemos el primer elemento de la lista, es decir, la primera accion del plan
+			plan.erase(plan.begin());	// Borramos el primer elemento del plan para actualizar la siguiente accion (la 2da pasa a ser 1era)
+		}
+		else{		// NO hay plan que seguir
+			// podemos valorar RECALCULAR el plan (tbien por obstaculos o cambios inesperados)
+			
+			// Version REACTIVA donde observa por los sensores y EVITA OBSTACULOS, resultado de NO TENER PLAN
+			if (sensores.terreno[2]=='P' or sensores.terreno[2]=='M' or
+				sensores.terreno[2]=='D' or sensores.superficie[2]=='a'){
+			
+				accion = actTURN_R;		// (LVL2) POR DEFECTO, CAMBIAR Y AJUSTAR A LO MAS CERCANO EN RUTA
+			}
+		}
+
+		/* Sistema de movimiento, EVITA OBSTACULOS
+		// Adaptado basicamente al LVL1 donde podemos leer siempre de mapaResultado la casilla delante del jugador
+		unsigned char casillaDelante;
+		switch(brujula){
+			case 0: casillaDelante = mapaResultado[fil-1][col]; break;
+			case 1: casillaDelante = mapaResultado[fil][col+1]; break;
+			case 2: casillaDelante = mapaResultado[fil+1][col]; break;
+			case 3: casillaDelante = mapaResultado[fil][col-1]; break;
+		}
+
+		if (casillaDelante=='P' or casillaDelante=='M' or
+			casillaDelante=='D' or sensores.superficie[2]=='a'){
+
+			accion = actTURN_R;		// (LVL2) POR DEFECTO, CAMBIAR Y AJUSTAR A LO MAS CERCANO EN RUTA
+		} */
 
 	}
 	else {
@@ -36,8 +116,17 @@ Action ComportamientoJugador::think(Sensores sensores) {
 		cout << "Aún no implementado el nivel 2" << endl;
 	}
 
-  return accion;
+	// Recordamos para la siguiente iteracion la accion tomada
+	ultimaAccion = accion;
+	return accion;
 }
+
+// Actualiza la posicion del jugador (fil, col) con el efecto de su ultima accion
+void actualizaPosicion(){
+
+	
+}
+
 
 
 // Llama al algoritmo de busqueda que se usará en cada comportamiento del agente
@@ -72,6 +161,8 @@ bool EsObstaculo(unsigned char casilla){
 	else
 	  return false;
 }
+
+// VALORAR OBSTACULO ALDEANO!!!!!!!!
 
 
 // Comprueba si la casilla que hay delante es un obstaculo. Si es un
