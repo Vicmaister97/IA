@@ -1,0 +1,9 @@
+/home/victor/Documents/UGR/2cuarto/ia/IA/practicas/p2/practica2/CMakeFiles/BelkanSG.dir
+/home/victor/Documents/UGR/2cuarto/ia/IA/practicas/p2/practica2/CMakeFiles/Belkan.dir
+/home/victor/Documents/UGR/2cuarto/ia/IA/practicas/p2/practica2/CMakeFiles/rebuild_cache.dir
+/home/victor/Documents/UGR/2cuarto/ia/IA/practicas/p2/practica2/CMakeFiles/motorLib.dir
+/home/victor/Documents/UGR/2cuarto/ia/IA/practicas/p2/practica2/CMakeFiles/obj3DLib.dir
+/home/victor/Documents/UGR/2cuarto/ia/IA/practicas/p2/practica2/CMakeFiles/edit_cache.dir
+/home/victor/Documents/UGR/2cuarto/ia/IA/practicas/p2/practica2/CMakeFiles/GLUILib.dir
+/home/victor/Documents/UGR/2cuarto/ia/IA/practicas/p2/practica2/CMakeFiles/modelosBelkanLib.dir
+/home/victor/Documents/UGR/2cuarto/ia/IA/practicas/p2/practica2/CMakeFiles/comportamientosLib.dir

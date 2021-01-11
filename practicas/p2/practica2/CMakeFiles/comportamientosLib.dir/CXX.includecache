@@ -29,11 +29,19 @@ motorlib/util.h
 /home/victor/Documents/UGR/2cuarto/ia/IA/practicas/p2/practica2/Comportamientos_Jugador/motorlib/util.h
 iostream
 -
+ctime
+-
+limits.h
+-
+list
+-
 cmath
 -
 set
 -
 stack
+-
+queue
 -
 
 /home/victor/Documents/UGR/2cuarto/ia/IA/practicas/p2/practica2/Comportamientos_Jugador/jugador.hpp
